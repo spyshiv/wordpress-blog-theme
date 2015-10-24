@@ -66,9 +66,6 @@ function blogshiv_setup(){
 		'aside', 'image', 'video', 'quote', 'link', 'gallery', 'status', 'audio', 'chat'
 	) );
 
-	$color_scheme  = blogshiv_get_color_scheme();
-	$default_color = trim( $color_scheme[0], '#' );
-
 	// Setup the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'blogshiv_custom_background_args', array(
 		'default-color'      => $default_color,
@@ -79,12 +76,10 @@ function blogshiv_setup(){
 	 * This theme styles the visual editor to resemble the theme style,
 	 * specifically font, colors, icons, and column width.
 	 */
-	add_editor_style( array( 'css/editor-style.css', 'genericons/genericons.css', blogshiv_fonts_url() ) );
+	add_editor_style( array( 'css/editor-style.css', 'genericons/genericons.css') );
 }
-endif; 
+ 
 add_action( 'after_setup_theme', 'blogshiv_setup' );
-
-}
 
 /**
  * Register widget area.
@@ -105,6 +100,33 @@ function blogshiv_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'blogshiv_widgets_init' );
+
+/**
+ * Enqueue scripts and styles.
+ *
+ * @since blogshiv 1.0
+ */
+function blogshiv_scripts() {
+	// Add custom fonts, used in the main stylesheet.
+
+	// Add Genericons, used in the main stylesheet.
+	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.2' );
+
+	// Load our main stylesheet.
+	wp_enqueue_style( 'blogshiv-style', get_stylesheet_uri() );
+
+	// Load the Internet Explorer specific stylesheet.
+	wp_enqueue_style( 'blogshiv-ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'blogshiv-style' ), '20152410' );
+	wp_style_add_data( 'blogshiv-ie', 'conditional', 'lt IE 9' );
+
+	// Load the Internet Explorer 7 specific stylesheet.
+	wp_enqueue_style( 'blogshiv-ie7', get_template_directory_uri() . '/assets/css/ie7.css', array( 'blogshiv-style' ), '20152410' );
+	wp_style_add_data( 'blogshiv-ie7', 'conditional', 'lt IE 8' );
+
+	wp_enqueue_script( 'blogshiv-skip-link-focus-fix', get_template_directory_uri() . 'assets/js/init.js', array(), '20152410', true );
+}
+add_action( 'wp_enqueue_scripts', 'blogshiv_scripts' );
+
 
 ?>
 
