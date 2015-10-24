@@ -66,7 +66,7 @@ function blogshiv_setup(){
 		'aside', 'image', 'video', 'quote', 'link', 'gallery', 'status', 'audio', 'chat'
 	) );
 
-	$color_scheme  = twentyfifteen_get_color_scheme();
+	$color_scheme  = blogshiv_get_color_scheme();
 	$default_color = trim( $color_scheme[0], '#' );
 
 	// Setup the WordPress core custom background feature.
@@ -85,6 +85,26 @@ endif;
 add_action( 'after_setup_theme', 'blogshiv_setup' );
 
 }
+
+/**
+ * Register widget area.
+ *
+ * @since blogshiv 1.0
+ *
+ * @link https://codex.wordpress.org/Function_Reference/register_sidebar
+ */
+function blogshiv_widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Widget Area', 'blogshiv' ),
+		'id'            => 'sidebar-1',
+		'description'   => __( 'Add widgets here to appear in your sidebar.', 'blogshiv' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+}
+add_action( 'widgets_init', 'blogshiv_widgets_init' );
 
 ?>
 
