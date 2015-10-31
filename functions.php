@@ -114,7 +114,10 @@ function blogshiv_scripts() {
 
 	// Load our main stylesheet.
 	wp_enqueue_style( 'blogshiv-style', get_stylesheet_uri() );
-
+    //Load CSS Files
+    wp_enqueue_style( 'blogshiv-bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', array( 'blogshiv-style' ), '20152410' );
+    wp_enqueue_style( 'blogshiv-dashboard', get_template_directory_uri() . '/assets/css/dashboard.css', array( 'blogshiv-style' ), '20152410' );
+    wp_enqueue_style( 'blogshiv-stylecss', get_template_directory_uri() . '/assets/css/style.css', array( 'blogshiv-style' ), '20152410' );
 	// Load the Internet Explorer specific stylesheet.
 	wp_enqueue_style( 'blogshiv-ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'blogshiv-style' ), '20152410' );
 	wp_style_add_data( 'blogshiv-ie', 'conditional', 'lt IE 9' );
@@ -122,8 +125,10 @@ function blogshiv_scripts() {
 	// Load the Internet Explorer 7 specific stylesheet.
 	wp_enqueue_style( 'blogshiv-ie7', get_template_directory_uri() . '/assets/css/ie7.css', array( 'blogshiv-style' ), '20152410' );
 	wp_style_add_data( 'blogshiv-ie7', 'conditional', 'lt IE 8' );
-
-	wp_enqueue_script( 'blogshiv-skip-link-focus-fix', get_template_directory_uri() . 'assets/js/init.js', array(), '20152410', true );
+    wp_enqueue_script( 'blogshiv-jquery', get_template_directory_uri() . 'assets/js/jquery.min.js', array(), '20152410', true );
+	wp_enqueue_script( 'blogshiv-init', get_template_directory_uri() . 'assets/js/init.js', array(), '20152410', true );
+	wp_enqueue_script( 'blogshiv-truncate', get_template_directory_uri() . 'assets/js/truncate.min.js', array(), '20152410', true );
+	
 }
 add_action( 'wp_enqueue_scripts', 'blogshiv_scripts' );
 
